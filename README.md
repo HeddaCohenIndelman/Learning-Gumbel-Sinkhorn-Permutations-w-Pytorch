@@ -1,7 +1,12 @@
-# Learning-Gumbel-Sinkhorn-Permutations-
+# Learning-Gumbel-Sinkhorn-Permutations
 LEARNING LATENT PERMUTATIONS WITH GUMBEL SINKHORN NETWORKS IMPLEMENTATION WITH PYTORCH
 
 The algorithm is based on the paper LEARNING LATENT PERMUTATIONS WITH GUMBEL-SINKHORN NETWORKS [https://arxiv.org/pdf/1802.08665.pdf] and their reference tensorflow implementation [https://github.com/google/gumbel_sinkhorn]
+
+Sinkhorn network is a supervised method for learning to reconstruct a scrambled object X˜ (input)
+given several training examples (X, X˜). By applying some non-linear transformations, a Sinkhorn network richly parameterizes the mapping between X˜ and the permutation P that once applied to X˜, will allow to reconstruct the original object as Xrec = P<sup>-1</sup>X.
+The high level architecture is depicted below:
+![architecture](https://github.com/HeddaCohenIndelman/Learning-Gumbel-Sinkhorn-Permutations-w-Pytorch/blob/master/sinkhorn%20gumbel%20network%20architecture.pdf)
 
 ## How to run this code:
 ### Evaluate
