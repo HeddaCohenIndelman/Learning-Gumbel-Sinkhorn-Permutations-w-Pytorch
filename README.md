@@ -39,5 +39,3 @@ The loss function graph is plotted below:
 
 ![Training Loss](https://github.com/HeddaCohenIndelman/Learning-Gumbel-Sinkhorn-Permutations-w-Pytorch/blob/master/training_loss.png)
 
-
-Coming up is an explanation of the architecture!
