@@ -1,9 +1,7 @@
 
 """Model class for sorting numbers."""
 
-import torch
 import torch.nn as nn
-from torch.autograd import Variable
 
 
 class Sinkhorn_Net(nn.Module):
