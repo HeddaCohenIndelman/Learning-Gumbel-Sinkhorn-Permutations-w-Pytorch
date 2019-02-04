@@ -9,9 +9,7 @@ import numpy as np
 from scipy.optimize import linear_sum_assignment
 from scipy.stats import kendalltau
 import torch
-import tensorflow as tf
-import copy
-from torch.distributions import Bernoulli
+#from torch.distributions import Bernoulli
 
 def my_sample_gumbel(shape, eps=1e-20):
     """Samples arbitrary-shaped standard gumbel variables.
@@ -116,7 +114,7 @@ def my_gumbel_sinkhorn(log_alpha, temp=1.0, n_samples=1, noise_factor=1.0, n_ite
           batch_size *n_samples doubly-stochastic matrices. If n_samples = 1 and
           squeeze = True then the output is 3D.
         log_alpha_w_noise: a 4D tensor of [batch_size, n_samples, N, N] of
-          noisy samples of log_alpha, divided by the temperature parameter. If
+          noisy samples of log_alpha, divided by the temperature parameter. Ifmy_invert_listperm
           n_samples = 1 then the output is 3D.
     """
     n = log_alpha.size()[1]
@@ -263,7 +261,7 @@ def my_listperm2matperm(listperm):
     eye= torch.tensor(eye, dtype=torch.int32)
     return eye
 
-def my_matperm2listperm(matperm, dtype=tf.int32):
+def my_matperm2listperm(matperm):
     """Converts a batch of permutations to its enumeration (list) form.
 
     Args:
@@ -271,7 +269,7 @@ def my_matperm2listperm(matperm, dtype=tf.int32):
       shape = [batch_size, n_objects, n_objects] so that matperm[n, :, :] is a
       permutation of the identity matrix. If the input is 2D, it is reshaped
       to 3D with batch_size = 1.
-    dtype: output_type (tf.int32, tf.int64)
+    dtype: output_type (int32, int64)
 
     Returns:
     A 2D tensor of permutations listperm, where listperm[n,i]
@@ -281,7 +279,6 @@ def my_matperm2listperm(matperm, dtype=tf.int32):
     n_objects = matperm.size()[1]
     matperm = matperm.view(-1, n_objects, n_objects)
 
-    #_, argmax = matperm.max(-1)
     #argmax is the index location of each maximum value found(argmax)
     _, argmax = torch.max(matperm, dim=2, keepdim= True)
     argmax = argmax.view(batch_size, n_objects)
