@@ -21,13 +21,13 @@ The following metrics will be calculated:
 
 When run on a test set of numbers drawn from a standard uniform distribution, you can see that the net learned a perfectly correct sorting!
 
-|               | N=5           | N=10          | N=15          | N=80          | N=100         | N=120         |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-|L1 loss        | .0            | .0            | .0            | .0            | .0            | .0            |
-|L2 loss        | .0            | .0            | .0            | .0            | .0            | .0            |
-|Prop. wrong    | .0            | .0            | .0            | .0            | .0            | .0            |
-|Prop. any wrong| .0            | .0            | .0            | .0            | .0            | .0            |
-|Kendall's tau  | 1.            | 1.            | 1.            | 1.            | 1.            | 1.            |
+|               | N=5           | N=10          | N=15          | N=80          | N=100         |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+|L1 loss        | .0            | .0            | .0            | .0            | .0            |
+|L2 loss        | .0            | .0            | .0            | .0            | .0            | 
+|Prop. wrong    | .0            | .0            | .0            | .0            | .0            | 
+|Prop. any wrong| .0            | .0            | .0            | .0            | .0            |
+|Kendall's tau  | 1.            | 1.            | 1.            | 1.            | 1.            |
 
 
 ### Train
