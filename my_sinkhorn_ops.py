@@ -9,7 +9,12 @@ import numpy as np
 from scipy.optimize import linear_sum_assignment
 from scipy.stats import kendalltau
 import torch
-#from torch.distributions import Bernoulli
+is_cuda = torch.cuda.is_available()
+
+def to_var(x):
+    if is_cuda:
+        x = x.cuda()
+    return x
 
 def my_sample_gumbel(shape, eps=1e-20):
     """Samples arbitrary-shaped standard gumbel variables.
@@ -121,13 +126,12 @@ def my_gumbel_sinkhorn(log_alpha, temp=1.0, n_samples=1, noise_factor=1.0, n_ite
     log_alpha = log_alpha.view(-1, n, n)
     batch_size = log_alpha.size()[0]
 
-    #log_alpha_w_noise = log_alpha[:,None,:,:].expand(batch_size, n_samples, n, n)
     log_alpha_w_noise = log_alpha.repeat(n_samples, 1, 1)
 
     if noise_factor == 0:
         noise = 0.0
     else:
-        noise = my_sample_gumbel([n_samples*batch_size, n, n])*noise_factor
+        noise = to_var(my_sample_gumbel([n_samples*batch_size, n, n])*noise_factor)
 
     log_alpha_w_noise = log_alpha_w_noise + noise
     log_alpha_w_noise = log_alpha_w_noise / temp
@@ -189,7 +193,7 @@ def my_sample_uniform_and_order(n_lists, n_numbers, prob_inc):
     ordered, permutations = torch.sort(random, descending=True)
     #my change
     #ordered = ordered * sign
-    return ordered, random, permutations
+    return (ordered, random, permutations)
 
 def my_sample_permutations(n_permutations, n_objects):
     """Samples a batch permutations from the uniform distribution.
@@ -324,7 +328,7 @@ def my_matching(matrix_batch):
       sol[i, :] = linear_sum_assignment(-x[i, :])[1].astype(np.int32)
     return sol
 
-  listperms = hungarian(matrix_batch.detach().numpy())
+  listperms = hungarian(matrix_batch.detach().cpu().numpy())
   listperms = torch.from_numpy(listperms)
   return listperms
 
@@ -351,7 +355,7 @@ def my_kendall_tau(batch_perm1, batch_perm2):
       kendall[i, :] = kendalltau(x[i, :], y[i, :])[0]
     return kendall
 
-  listkendall = kendalltau_batch(batch_perm1.numpy(), batch_perm2.numpy())
+  listkendall = kendalltau_batch(batch_perm1.cpu().numpy(), batch_perm2.cpu().numpy())
   listkendall = torch.from_numpy(listkendall)
   return listkendall
 
