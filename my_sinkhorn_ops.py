@@ -1,8 +1,4 @@
-"""My torch implementation of permutations and sinkhorn balancing ops.
-
-A torch library of operations and sampling with permutations
-and their approximation with doubly-stochastic matrices, through Sinkhorn balancing
-
+"""My torch implementation of learning latent permutations ops.
 """
 
 import numpy as np
