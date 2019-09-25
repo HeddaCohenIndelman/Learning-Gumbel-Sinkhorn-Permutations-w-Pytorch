@@ -134,7 +134,7 @@ def my_gumbel_sinkhorn(log_alpha, temp=1.0, n_samples=1, noise_factor=1.0, n_ite
 
     my_log_alpha_w_noise = log_alpha_w_noise.clone()
 
-    sink = my_sinkhorn(my_log_alpha_w_noise)
+    sink = my_sinkhorn(my_log_alpha_w_noise, n_iters=n_iters)
     if n_samples > 1 or squeeze is False:
         sink = sink.view(n_samples, batch_size, n, n)
         sink = torch.transpose(sink, 1, 0)
